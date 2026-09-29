@@ -18,7 +18,7 @@ It also resolves the hidden parts that static tools miss, such as middlewares, d
 ## Install
 
 ```
-/plugin marketplace add minim/trace-flow
+/plugin marketplace add minimorcy/trace-flow
 /plugin install trace-flow@trace-flow
 ```
 
