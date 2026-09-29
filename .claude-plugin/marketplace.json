@@ -1,0 +1,13 @@
+{
+  "name": "trace-flow",
+  "owner": {
+    "name": "Javier Morcillo"
+  },
+  "plugins": [
+    {
+      "name": "trace-flow",
+      "source": "./plugins/trace-flow",
+      "description": "Trace a feature flow from entry point to end and get a curated, verified Mermaid diagram with file:line references."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "trace-flow",
+  "version": "0.1.0",
+  "description": "Trace a feature flow (login, checkout...) from entry point to end and get a curated, verified Mermaid diagram with file:line references.",
+  "author": {
+    "name": "Javier Morcillo"
+  },
+  "license": "MIT",
+  "keywords": ["diagram", "mermaid", "call-flow", "code-understanding", "onboarding"]
+}
