@@ -25,6 +25,8 @@ Follow calls from the entry point, **reading the actual code** at each hop. Reso
 - Events, signals, observers, pub/sub listeners
 - ORM hooks, DB triggers, background jobs / queues enqueued by the flow
 - Config-driven routing or feature flags
+- **Reactive frameworks** (React, Vue, Svelte, Angular signals): state updates do not run in-line. Follow the chain *state change → re-render → effects/watchers/computed that depend on it → further state changes*, and check what each intermediate render shows (e.g. derived data that is briefly empty or stale before an effect corrects it). Also note dev-only behavior such as React `StrictMode` double-running effects.
+- **Cross-repo / client → server**: when the flow crosses into another repository or service you have access to, follow the call into it (match the client URL/method to the server route) instead of stopping at the HTTP boundary.
 
 If a hop cannot be resolved statically (reflection, runtime-built names, plugin loading), mark it as **unresolved** and state why. Never guess.
 
@@ -35,7 +37,7 @@ Keep a step only if it:
 - **crosses a boundary**: HTTP, DB, cache, queue, filesystem, external service, another module/layer
 - **changes state**: writes, sessions, tokens, cookies, counters
 - **decides**: a branch that changes the outcome (invalid credentials, locked account, MFA required)
-- **is security-relevant**: authentication, authorization, hashing, token signing/validation, rate limiting
+- **is security-relevant**: authentication, authorization, hashing, token signing/validation, rate limiting. For these, read the comparison logic itself (prefix/`startsWith` matching, unanchored regexes, fallbacks that default to allow) and confirm the check is actually wired in, not just defined.
 
 Drop logging, trivial getters, formatting, DTO mapping, and generic helpers unless they matter for the flow.
 
@@ -45,7 +47,7 @@ Target **8–15 steps** at the top level. If there are more, group them into nam
 
 Before writing any output, check every step and every arrow:
 
-- Each step has a `file:line` where the code actually runs or the call is made. Re-open the file to confirm the reference.
+- Each step has a `file:line` where the code actually runs or the call is made. Re-open the file to confirm the reference; ranges must start and end on the relevant code, not approximately around it.
 - A step you cannot anchor to a location is either removed or listed under *Gaps* as unverified.
 - The order matches real execution, including middleware that runs *before* the handler.
 
