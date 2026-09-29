@@ -1,5 +1,6 @@
 {
   "name": "trace-flow",
+  "description": "Claude Code skill to trace feature flows and generate verified Mermaid diagrams.",
   "owner": {
     "name": "Javier Morcillo"
   },
